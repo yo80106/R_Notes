@@ -1,0 +1,64 @@
+---
+title: R之地獄系列-I. 未領洗者
+author: Chun-Yu Chen
+date: '2018-07-17'
+slug: r之地獄系列-i-未領洗者
+categories:
+  - Programming
+tags:
+  - R Inferno
+  - float point
+subtitle: ''
+---
+
+
+
+<div class="section level1">
+<h1>小心浮點數的圈套…</h1>
+<p>當我們跨過「阿刻戎河」(Acheron)，我們抵達了地獄第一層(Circle 1)。這裡安置了未受洗者、那些生前忽視「浮點數之神」者。這些人以為<code>0.1 == 0.3/3</code>為是、或是<code>seq(0, 1, by=.1) == .3</code>中會有一個TRUE。</p>
+<pre class="r"><code>0.1 == 0.3/3</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>seq(0, 1, by=.1) == .3</code></pre>
+<pre><code>##  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE</code></pre>
+<p>事實上，R和多數的程式一樣，採用「浮點數計算」(Floating-point arithmetic)，這涉及到電腦儲存數字的方式與二進位法，在多數情況下運算是沒有問題，但在極端的例子中可能產生極些微的差距。下面的例子中，你以為j被你指定為0.1，但電腦不是完全以「0.1」的形式儲存，可以說很接近，但不是一模一樣。因為很接近，對大多數的運算不產生影響，所以<code>j*10-1</code>還是得到1。</p>
+<pre class="r"><code>j &lt;- 0.1
+j*10 - 1</code></pre>
+<pre><code>## [1] 0</code></pre>
+<p>我們可以稱這些存在於真實數字與電腦處理數字中的極小差異稱為numerical error，而R把他們隱藏得很好，讓我們很容易忽視浮點數的計算，而落入這層地獄中。過去曾發生過科學家忽略了浮點數計算的些微差距，而釀成大災難的<a href="https://www.techradar.com/news/computing/why-computers-suck-at-maths-644771/3">例子</a>，所以當你在做浮點數運算的時候，心中要有numerical error的概念。</p>
+<p>以下有幾點可以幫助我們避開numerical error:</p>
+<ul>
+<li>不要使用<code>==</code>來比較浮點數，改用<code>all.equal()</code></li>
+</ul>
+<pre class="r"><code>0.1 == 0.3/3</code></pre>
+<pre><code>## [1] FALSE</code></pre>
+<pre class="r"><code>all.equal(0.1, 0.3/3)</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<pre class="r"><code># shouldn&#39;t this end with j equal to 1?
+j &lt;- 0
+while(j &lt; 1){
+    j &lt;- j + 0.1
+}
+j</code></pre>
+<pre><code>## [1] 1.1</code></pre>
+<pre class="r"><code>j &lt;- 0
+while(!isTRUE(all.equal(j, 1))){
+    j &lt;- j + 0.1
+}
+j</code></pre>
+<pre><code>## [1] 1</code></pre>
+<ul>
+<li>當你確定是整數的運算時，先使用<code>as.integer()</code>把數字改為整數，一來可以放心使用<code>==</code>，也使記憶體用量降低</li>
+</ul>
+<pre class="r"><code>a &lt;- as.integer(1.0)
+a == 1</code></pre>
+<pre><code>## [1] TRUE</code></pre>
+<ul>
+<li>進行數字運算時，若有R內建的function，就盡量使用吧，例如:<code>std()</code></li>
+</ul>
+<p>我們來到地獄第一層與第二層的交界，冥界判官米諾斯(Minos)守在那。他有條蛇一般的尾巴，當我們站在他面前，他的尾巴開始纏繞自己，纏繞幾圈指示著我們罪有多重，該被送到哪一層地獄…</p>
+<p>參考資料:</p>
+<ul>
+<li>Circle 1 of The R Inferno</li>
+<li><a href="http://blog.revolutionanalytics.com/2009/03/when-is-a-zero-not-a-zero.html">When is a zero not a zero?</a></li>
+</ul>
+</div>
