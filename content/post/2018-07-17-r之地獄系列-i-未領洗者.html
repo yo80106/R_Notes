@@ -16,6 +16,10 @@ subtitle: ''
 <div class="section level1">
 <h1>小心浮點數的圈套…</h1>
 <p>當我們跨過「阿刻戎河」(Acheron)，我們抵達了地獄第一層(Circle 1)。這裡安置了未受洗者、那些生前忽視「浮點數之神」者。這些人以為<code>0.1 == 0.3/3</code>為是、或是<code>seq(0, 1, by=.1) == .3</code>中會有一個TRUE。</p>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/yo80106/R_Notes/master/public/image/Inferno_Canto_3_Charon_strikes_lines_107-108.jpg" alt="《神曲》中阿刻戎河邊的擺渡者卡隆(Charon)與亡靈們" />
+<p class="caption">《神曲》中阿刻戎河邊的擺渡者卡隆(Charon)與亡靈們</p>
+</div>
 <pre class="r"><code>0.1 == 0.3/3</code></pre>
 <pre><code>## [1] FALSE</code></pre>
 <pre class="r"><code>seq(0, 1, by=.1) == .3</code></pre>
@@ -56,6 +60,10 @@ a == 1</code></pre>
 <li>進行數字運算時，若有R內建的function，就盡量使用吧，例如:<code>sd()</code></li>
 </ul>
 <p>我們來到地獄第一層與第二層的交界，冥界判官米諾斯(Minos)守在那。他有條蛇一般的尾巴，當我們站在他面前，他的尾巴開始纏繞自己，纏繞幾圈指示著我們罪有多重，該被送到哪一層地獄…</p>
+<div class="figure">
+<img src="https://raw.githubusercontent.com/yo80106/R_Notes/master/public/image/Inferno_Canto_5_line_4_Minos.jpg" alt="《神曲》中的米諾斯(Minos)" />
+<p class="caption">《神曲》中的米諾斯(Minos)</p>
+</div>
 <p>參考資料:</p>
 <ul>
 <li>Circle 1 of The R Inferno</li>
