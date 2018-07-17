@@ -1,6 +1,6 @@
 +++
 title = "About R Notes"
-date = "2014-04-09"
 +++
-hello
+R的學習筆記佐以一些和R有關的有趣文章。
+
 
