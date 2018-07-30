@@ -69,7 +69,7 @@
 這篇文章我們來討論，如何在你的程式碼中，改善諸多R在效率上的先天不良。本文主要參考自Colin Gillespie在DataCamp上的課程:Writing Efficient R Code。
 這是一個講求速度的世界… 我們將不同的程式碼經由相同的標準進行執行速度的測試，也可以反過來用不同的硬體去測試相同的程式碼，這種在相同基準下，測試執行效率的過程稱為標竿測試(benchmarking)。測試會計算不同方法所需經過的時間(elapsed time)。
 為你使用的指令測速 在R的世界中，常常一件事情有多個方法可以達成，也許你平常不會感受到，但不同方法間確實有效率的差異。當你的程式跑得太久，可以透過簡單的指令，測試不同方法間，最具效率者。microbenchmark套件提供方便的指令:microbenchmark()，可一次比較多個指令，且指定執行的次數。
-# Load the microbenchmark package library(microbenchmark) ## Warning: package &#39;microbenchmark&#39; was built under R version 3.4.4 # Compare the two functions x &lt;- runif(100) a &lt;- microbenchmark(sqrt(x), x ^ 0.5) summary(a) ## expr min lq mean median uq max neval ## 1 sqrt(x) 1.4 1.5 1.976 1.6 1.75 30.2 100 ## 2 x^0.5 7.9 8.1 8.398 8.2 8.40 14.
+# Load the microbenchmark package library(microbenchmark) ## Warning: package &#39;microbenchmark&#39; was built under R version 3.4.4 # Compare the two functions x &lt;- runif(100) a &lt;- microbenchmark(sqrt(x), x ^ 0.5) summary(a) ## expr min lq mean median uq max neval ## 1 sqrt(x) 2.5 2.95 3.554 3.1 3.45 20.2 100 ## 2 x^0.5 11.9 13.10 14.325 13.7 14.40 36.
         </div>
         <div class="article-readmore"><a href="/post/%E6%8F%90%E5%8D%87r-code%E6%95%88%E7%8E%87%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/">Read more...</a></div>
         <div class="article-floatclear"></div>

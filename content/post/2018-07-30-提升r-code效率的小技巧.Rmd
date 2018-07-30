@@ -16,7 +16,7 @@ subtitle: ''
 
 ## 這是一個講求速度的世界...
 
-<img style="float: left;" src="https://raw.githubusercontent.com/yo80106/R_Notes/master/public/image/959840-usain-bolt-wallpapers.jpg" alt="drawing" width="400px"/>
+![](https://raw.githubusercontent.com/yo80106/R_Notes/master/public/image/959840-usain-bolt-wallpapers.jpg")
 
 我們將不同的程式碼經由相同的標準進行執行速度的測試，也可以反過來用不同的硬體去測試相同的程式碼，這種在相同基準下，測試執行效率的過程稱為標竿測試(benchmarking)。測試會計算不同方法所需經過的時間(elapsed time)。
 
