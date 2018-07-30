@@ -1,0 +1,144 @@
+---
+title: 提升R Code效率的小技巧
+author: Chun-Yu Chen
+date: '2018-07-30'
+slug: 提升r-code效率的小技巧
+categories:
+  - Programming
+tags:
+  - microbenchmark
+  - benchmarkme
+subtitle: ''
+---
+身為R的愛好者，我們必須面對事實:R確實不是一個有效率且快速的程式語言。R的誕生本來就是為了方便資料分析、產生精美的圖表，而不是用來開發大規模的程式專案。關於R寫出來的程式為什麼先天跑得比別人慢，在著名的Advanced R一書中有[一個章節](http://adv-r.had.co.nz/Performance.html)細究，這有機會我們在跳坑跟大家分享。
+
+這篇文章我們來討論，如何在你的程式碼中，改善諸多R在效率上的先天不良。本文主要參考自Colin Gillespie在DataCamp上的課程:[Writing Efficient R Code](https://www.datacamp.com/courses/writing-efficient-r-code)。
+
+## 這是一個講求速度的世界...
+
+<img style="float: left;" src="https://raw.githubusercontent.com/yo80106/R_Notes/master/public/image/959840-usain-bolt-wallpapers.jpg" alt="drawing" width="400px"/>
+
+我們將不同的程式碼經由相同的標準進行執行速度的測試，也可以反過來用不同的硬體去測試相同的程式碼，這種在相同基準下，測試執行效率的過程稱為標竿測試(benchmarking)。測試會計算不同方法所需經過的時間(elapsed time)。
+
+### 為你使用的指令測速
+在R的世界中，常常一件事情有多個方法可以達成，也許你平常不會感受到，但不同方法間確實有效率的差異。當你的程式跑得太久，可以透過簡單的指令，測試不同方法間，最具效率者。[microbenchmark套件](https://www.rdocumentation.org/packages/microbenchmark/versions/1.4-4)提供方便的指令:[microbenchmark()](https://www.rdocumentation.org/packages/microbenchmark/versions/1.4-2.1/topics/microbenchmark)，可一次比較多個指令，且指定執行的次數。
+
+```{r}
+# Load the microbenchmark package
+library(microbenchmark)
+
+# Compare the two functions
+x <- runif(100)
+a <- microbenchmark(sqrt(x), x ^ 0.5)
+summary(a)
+```
+
+### 你的電腦硬體有多快?
+當然電腦硬體等級越高，程式跑起來肯定更快，我們可以用[benchmarkme](https://www.rdocumentation.org/packages/benchmarkme)套件，了解目前機器所有的記憶體容量、CPU速度與核心數。不過這只是機器所搭載的硬體資訊，無法反映目前機器已佔用的資源。
+
+```{r}
+# Load the benchmarkme package
+# install.packages("benchmarkme")
+library(benchmarkme)
+
+# Assign the variable ram to the amount of RAM on this machine
+ram <- get_ram()
+ram
+
+# Assign the variable cpu to the cpu specs
+cpu <- get_cpu()
+cpu
+```
+
+## 談談三個基本原則，讓你的程式快起來
+網路上很多教學，都試著提供各種讓R code快起來的方法，但我覺得有三個原則最容易做到，而且從今天起就應該融入你的程式碼中。
+
+### 第一條: 絕對、千萬不可把向量物件肥起來
+R的向量物件(vector)非常好用，我們很喜歡在迴圈裡面使用它，因為它的形式簡單，`c()`就可以建立。它可用來儲存每一次迴圈所產生的值，並在最後使用其他的指令進行計算或轉換成其他資料格式都很方便(而且向量不只方便也可使你的程式更快)。以下比較兩種在迴圈中使用向量物件的例子，一個不斷肥大向量物件，另一個則先配置好向量物件。
+
+#### 不斷肥大的向量物件
+這個例子中，我們在迴圈外定義了一個向量物件`x <- c()`，既沒有先告訴R是包含數字或包含字串的向量，也沒有講向量的長度。我們在每一次的迴圈中用`c()`將前面產生的值包進來，不斷增長向量物件。
+
+```{r}
+n <- 30000
+# Slow code
+growing <- function(n) {
+    x <- c()
+    for(i in 1:n){
+        x <- c(x, rnorm(1))
+    }
+}
+
+# Use <- with system.time() to store the result as res_grow
+system.time(res_grow <- growing(30000))
+```
+
+#### 做好記憶體配置
+這個例子，我們修改了`for`迴圈前的向量物件:`x <- numeric(n)`，先定義好這是一個數值向量，並有n個值在裏頭。這其實方便R做好記憶體的配置，增進了後續迴圈運算的效率。
+
+```{r}
+n <- 30000
+# Fast code
+pre_allocate <- function(n) {
+    x <- numeric(n) # Pre-allocate
+    for(i in 1:n) {
+        x[i] <- rnorm(1)
+    }
+}
+
+# Use <- with system.time() to store the result as res_allocate
+system.time(res_allocate <- pre_allocate(n))
+```
+
+從上兩個例子中，你可以發現千萬不可在迴圈中不斷增長向量物件，我想這是一個很容易做到的技巧。
+
+### 善用向量物件
+上面提過R的向量物件方便而且快速，因為R有許多內建的function都是針對向量物件進行處理，能有效提升程式的速度。但有時候R的初學者在不夠熟悉functions的情況下，常常將問題複雜化，一兩個function可以解決的事，卻用了迴圈來解決問題，不只增加出錯的風險，也讓程式變慢了。以下為一個例子，將10000個隨機數字進行取log值後，再相加。
+
+#### 用迴圈解決
+
+```{r}
+n <- 10000
+loop <- function(n){
+    total <- 0
+    x <- runif(n)
+    for(i in 1:n){
+        total <- total + log(x[i])
+    }
+}
+system.time(loop(n))
+```
+
+#### 用R內建functions對向量物件直接計算
+
+```{r}
+n <- 10000
+x <- runif(n)
+system.time(log_sum <- sum(log(x)))
+```
+
+### 矩陣物件(matrix)快過資料框物件(data frame)
+矩陣用來處理表格形式的資料，在速度上快過資料框，是因為所有資料儲存於矩陣中必須是同類型。資料框則是同一欄中的資料必須為相同類型，但同一列可因為不同類型的欄位組成而儲存不同類型的資料。以下我們各創造一個100*1000的矩陣和資料框，來比較他們擷取攔和列的速度。
+
+```{r}
+mat <- matrix(rnorm(100), rnorm(1000), ncol = 1000, nrow = 100)
+str(mat)
+df <- as.data.frame(mat)
+dim(df)
+```
+
+#### 擷取欄位
+
+```{r}
+summary(microbenchmark(mat[,1], df[,1]))
+```
+
+#### 擷取列
+
+```{r}
+summary(microbenchmark(mat[1,], df[1,]))
+```
+
+參考資料:
+
+- [Writing Efficient R Code](https://www.datacamp.com/courses/writing-efficient-r-code) from DataCamp created by Colin Gillespie

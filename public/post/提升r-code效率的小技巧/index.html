@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <title>提升R Code效率的小技巧 - R Notes</title>
+  <meta property="og:title" content="提升R Code效率的小技巧 - R Notes" />
+  <meta name="twitter:title" content="提升R Code效率的小技巧 - R Notes" />
+  <meta name="description" content="身為R的愛好者，我們必須面對事實:R確實不是一個有效率且快速的程式語言。R的誕生本來就是為了方便資料分析、產生精美的圖表，而不是用來開發大規模的程式專案。關於R寫出來的程式為什麼先天跑得比別人慢，在著名的Advanced R一書中有一個章節細究，這有機會我們在跳坑跟大家分享。
+這篇文章我們來討論，如何在你的程式碼中，改善諸多R在效率上的先天不良。本文主要參考自Colin Gillespie在DataCamp上的課程:Writing Efficient R Code。
+這是一個講求速度的世界… 我們將不同的程式碼經由相同的標準進行執行速度的測試，也可以反過來用不同的硬體去測試相同的程式碼，這種在相同基準下，測試執行效率的過程稱為標竿測試(benchmarking)。測試會計算不同方法所需經過的時間(elapsed time)。
+為你使用的指令測速 在R的世界中，常常一件事情有多個方法可以達成，也許你平常不會感受到，但不同方法間確實有效率的差異。當你的程式跑得太久，可以透過簡單的指令，測試不同方法間，最具效率者。microbenchmark套件提供方便的指令:microbenchmark()，可一次比較多個指令，且指定執行的次數。
+# Load the microbenchmark package library(microbenchmark) ## Warning: package &#39;microbenchmark&#39; was built under R version 3.4.4 # Compare the two functions x &lt;- runif(100) a &lt;- microbenchmark(sqrt(x), x ^ 0.5) summary(a) ## expr min lq mean median uq max neval ## 1 sqrt(x) 1.4 1.5 1.976 1.6 1.75 30.2 100 ## 2 x^0.5 7.9 8.1 8.398 8.2 8.40 14.">
+  <meta property="og:description" content="身為R的愛好者，我們必須面對事實:R確實不是一個有效率且快速的程式語言。R的誕生本來就是為了方便資料分析、產生精美的圖表，而不是用來開發大規模的程式專案。關於R寫出來的程式為什麼先天跑得比別人慢，在著名的Advanced R一書中有一個章節細究，這有機會我們在跳坑跟大家分享。
+這篇文章我們來討論，如何在你的程式碼中，改善諸多R在效率上的先天不良。本文主要參考自Colin Gillespie在DataCamp上的課程:Writing Efficient R Code。
+這是一個講求速度的世界… 我們將不同的程式碼經由相同的標準進行執行速度的測試，也可以反過來用不同的硬體去測試相同的程式碼，這種在相同基準下，測試執行效率的過程稱為標竿測試(benchmarking)。測試會計算不同方法所需經過的時間(elapsed time)。
+為你使用的指令測速 在R的世界中，常常一件事情有多個方法可以達成，也許你平常不會感受到，但不同方法間確實有效率的差異。當你的程式跑得太久，可以透過簡單的指令，測試不同方法間，最具效率者。microbenchmark套件提供方便的指令:microbenchmark()，可一次比較多個指令，且指定執行的次數。
+# Load the microbenchmark package library(microbenchmark) ## Warning: package &#39;microbenchmark&#39; was built under R version 3.4.4 # Compare the two functions x &lt;- runif(100) a &lt;- microbenchmark(sqrt(x), x ^ 0.5) summary(a) ## expr min lq mean median uq max neval ## 1 sqrt(x) 1.4 1.5 1.976 1.6 1.75 30.2 100 ## 2 x^0.5 7.9 8.1 8.398 8.2 8.40 14.">
+  <meta name="twitter:description" content="身為R的愛好者，我們必須面對事實:R確實不是一個有效率且快速的程式語言。R的誕生本來就是為了方便資料分析、產生精美的圖表，而不是用來開發大規模的程式專案。關於R寫出來的程式為什麼先天跑得比別人慢，在著名的Advanced R一書中有一個章節細究，這有機會我們在跳坑跟大家分享。
+這篇文章我們來討論，如何在你的程式碼中，改善諸多R在效率上的先天不良。本文主要參考自Colin Gillespie …">
+  <meta name="author" content=""/>
+  <meta property="og:site_name" content="R Notes" />
+  <meta property="og:url" content="/post/%E6%8F%90%E5%8D%87r-code%E6%95%88%E7%8E%87%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/" />
+  <meta property="og:type" content="article" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="generator" content="Hugo 0.40.3" />
+  <link rel="stylesheet" href="/css/style.css" media="all" />
+  <link rel="stylesheet" href="/css/syntax.css" media="all" />
+  <link rel="stylesheet" href="/css/custom.css" media="all" />
+  <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
+  <script defer src="https://use.fontawesome.com/releases/v5.0.10/js/all.js" integrity="sha384-slN8GvtUJGnv6ca26v8EzVaR9DC58QEwsIk9q1QXdCU8Yu8ck/tL/5szYlBbqmS+" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+<header class="site-header">
+  <nav class="site-navi">
+    <h1 class="site-title"><a href="/">R Notes</a></h1>
+    <ul class="site-navi-items">
+      <li class="site-navi-item-categories"><a href="/categories/" title="Categories">Categories</a></li>
+      <li class="site-navi-item-tags"><a href="/tags/" title="Tags">Tags</a></li>
+      <li class="site-navi-item-archives"><a href="/archives/" title="Archives">Archives</a></li>
+      <li class="site-navi-item-about"><a href="/about/" title="About">About</a></li>
+    </ul>
+  </nav>
+</header>
+<hr class="site-header-bottom">
+
+  <div class="main" role="main">
+    <article class="article">
+      
+      
+      <h1 class="article-title">提升R Code效率的小技巧</h1>
+      
+      <hr class="article-title-bottom">
+      <ul class="article-meta">
+        <li class="article-meta-date"><time>July 30, 2018</time></li>
+        <li class="article-meta-categories">
+          <a href="/categories/programming/">
+            <i class="fas fa-folder"></i>
+            Programming
+          </a>&nbsp;
+        </li>
+        <li class="article-meta-tags">
+          <a href="/tags/microbenchmark/">
+            <i class="fas fa-tag"></i>
+            microbenchmark
+          </a>&nbsp;
+        </li>
+        <li class="article-meta-tags">
+          <a href="/tags/benchmarkme/">
+            <i class="fas fa-tag"></i>
+            benchmarkme
+          </a>&nbsp;
+        </li>
+      </ul>
+      
+<aside class="toc">
+  
+</aside>
+      <p>身為R的愛好者，我們必須面對事實:R確實不是一個有效率且快速的程式語言。R的誕生本來就是為了方便資料分析、產生精美的圖表，而不是用來開發大規模的程式專案。關於R寫出來的程式為什麼先天跑得比別人慢，在著名的Advanced R一書中有<a href="http://adv-r.had.co.nz/Performance.html">一個章節</a>細究，這有機會我們在跳坑跟大家分享。</p>
+<p>這篇文章我們來討論，如何在你的程式碼中，改善諸多R在效率上的先天不良。本文主要參考自Colin Gillespie在DataCamp上的課程:<a href="https://www.datacamp.com/courses/writing-efficient-r-code">Writing Efficient R Code</a>。</p>
+<div class="section level2">
+<h2>這是一個講求速度的世界…</h2>
+<p><img style="float: left;" src="https://raw.githubusercontent.com/yo80106/R_Notes/master/public/image/959840-usain-bolt-wallpapers.jpg" alt="drawing" width="400px"/></p>
+<p>我們將不同的程式碼經由相同的標準進行執行速度的測試，也可以反過來用不同的硬體去測試相同的程式碼，這種在相同基準下，測試執行效率的過程稱為標竿測試(benchmarking)。測試會計算不同方法所需經過的時間(elapsed time)。</p>
+<div class="section level3">
+<h3>為你使用的指令測速</h3>
+<p>在R的世界中，常常一件事情有多個方法可以達成，也許你平常不會感受到，但不同方法間確實有效率的差異。當你的程式跑得太久，可以透過簡單的指令，測試不同方法間，最具效率者。<a href="https://www.rdocumentation.org/packages/microbenchmark/versions/1.4-4">microbenchmark套件</a>提供方便的指令:<a href="https://www.rdocumentation.org/packages/microbenchmark/versions/1.4-2.1/topics/microbenchmark">microbenchmark()</a>，可一次比較多個指令，且指定執行的次數。</p>
+<pre class="r"><code># Load the microbenchmark package
+library(microbenchmark)</code></pre>
+<pre><code>## Warning: package &#39;microbenchmark&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code># Compare the two functions
+x &lt;- runif(100)
+a &lt;- microbenchmark(sqrt(x), x ^ 0.5)
+summary(a)</code></pre>
+<pre><code>##      expr min  lq  mean median   uq  max neval
+## 1 sqrt(x) 1.4 1.5 1.976    1.6 1.75 30.2   100
+## 2   x^0.5 7.9 8.1 8.398    8.2 8.40 14.3   100</code></pre>
+</div>
+<div class="section level3">
+<h3>你的電腦硬體有多快?</h3>
+<p>當然電腦硬體等級越高，程式跑起來肯定更快，我們可以用<a href="https://www.rdocumentation.org/packages/benchmarkme">benchmarkme</a>套件，了解目前機器所有的記憶體容量、CPU速度與核心數。不過這只是機器所搭載的硬體資訊，無法反映目前機器已佔用的資源。</p>
+<pre class="r"><code># Load the benchmarkme package
+# install.packages(&quot;benchmarkme&quot;)
+library(benchmarkme)</code></pre>
+<pre><code>## Warning: package &#39;benchmarkme&#39; was built under R version 3.4.4</code></pre>
+<pre class="r"><code># Assign the variable ram to the amount of RAM on this machine
+ram &lt;- get_ram()
+ram</code></pre>
+<pre><code>## 4.29 GB</code></pre>
+<pre class="r"><code># Assign the variable cpu to the cpu specs
+cpu &lt;- get_cpu()
+cpu</code></pre>
+<pre><code>## $vendor_id
+## [1] &quot;GenuineIntel&quot;
+## 
+## $model_name
+## [1] &quot;Intel(R) Core(TM) i7-3517U CPU @ 1.90GHz&quot;
+## 
+## $no_of_cores
+## [1] 4</code></pre>
+</div>
+</div>
+<div class="section level2">
+<h2>談談三個基本原則，讓你的程式快起來</h2>
+<p>網路上很多教學，都試著提供各種讓R code快起來的方法，但我覺得有三個原則最容易做到，而且從今天起就應該融入你的程式碼中。</p>
+<div id="-" class="section level3">
+<h3>第一條: 絕對、千萬不可把向量物件肥起來</h3>
+<p>R的向量物件(vector)非常好用，我們很喜歡在迴圈裡面使用它，因為它的形式簡單，<code>c()</code>就可以建立。它可用來儲存每一次迴圈所產生的值，並在最後使用其他的指令進行計算或轉換成其他資料格式都很方便(而且向量不只方便也可使你的程式更快)。以下比較兩種在迴圈中使用向量物件的例子，一個不斷肥大向量物件，另一個則先配置好向量物件。</p>
+<div class="section level4">
+<h4>不斷肥大的向量物件</h4>
+<p>這個例子中，我們在迴圈外定義了一個向量物件<code>x &lt;- c()</code>，既沒有先告訴R是包含數字或包含字串的向量，也沒有講向量的長度。我們在每一次的迴圈中用<code>c()</code>將前面產生的值包進來，不斷增長向量物件。</p>
+<pre class="r"><code>n &lt;- 30000
+# Slow code
+growing &lt;- function(n) {
+    x &lt;- c()
+    for(i in 1:n){
+        x &lt;- c(x, rnorm(1))
+    }
+}
+
+# Use &lt;- with system.time() to store the result as res_grow
+system.time(res_grow &lt;- growing(30000))</code></pre>
+<pre><code>##    user  system elapsed 
+##    2.70    0.05    2.75</code></pre>
+</div>
+<div class="section level4">
+<h4>做好記憶體配置</h4>
+<p>這個例子，我們修改了<code>for</code>迴圈前的向量物件:<code>x &lt;- numeric(n)</code>，先定義好這是一個數值向量，並有n個值在裏頭。這其實方便R做好記憶體的配置，增進了後續迴圈運算的效率。</p>
+<pre class="r"><code>n &lt;- 30000
+# Fast code
+pre_allocate &lt;- function(n) {
+    x &lt;- numeric(n) # Pre-allocate
+    for(i in 1:n) {
+        x[i] &lt;- rnorm(1)
+    }
+}
+
+# Use &lt;- with system.time() to store the result as res_allocate
+system.time(res_allocate &lt;- pre_allocate(n))</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.09    0.01    0.11</code></pre>
+<p>從上兩個例子中，你可以發現千萬不可在迴圈中不斷增長向量物件，我想這是一個很容易做到的技巧。</p>
+</div>
+</div>
+<div class="section level3">
+<h3>善用向量物件</h3>
+<p>上面提過R的向量物件方便而且快速，因為R有許多內建的function都是針對向量物件進行處理，能有效提升程式的速度。但有時候R的初學者在不夠熟悉functions的情況下，常常將問題複雜化，一兩個function可以解決的事，卻用了迴圈來解決問題，不只增加出錯的風險，也讓程式變慢了。以下為一個例子，將10000個隨機數字進行取log值後，再相加。</p>
+<div class="section level4">
+<h4>用迴圈解決</h4>
+<pre class="r"><code>n &lt;- 10000
+loop &lt;- function(n){
+    total &lt;- 0
+    x &lt;- runif(n)
+    for(i in 1:n){
+        total &lt;- total + log(x[i])
+    }
+}
+system.time(loop(n))</code></pre>
+<pre><code>##    user  system elapsed 
+##    0.02    0.00    0.01</code></pre>
+</div>
+<div id="rfunctions" class="section level4">
+<h4>用R內建functions對向量物件直接計算</h4>
+<pre class="r"><code>n &lt;- 10000
+x &lt;- runif(n)
+system.time(log_sum &lt;- sum(log(x)))</code></pre>
+<pre><code>##    user  system elapsed 
+##       0       0       0</code></pre>
+</div>
+</div>
+<div id="matrixdata-frame" class="section level3">
+<h3>矩陣物件(matrix)快過資料框物件(data frame)</h3>
+<p>矩陣用來處理表格形式的資料，在速度上快過資料框，是因為所有資料儲存於矩陣中必須是同類型。資料框則是同一欄中的資料必須為相同類型，但同一列可因為不同類型的欄位組成而儲存不同類型的資料。以下我們各創造一個100*1000的矩陣和資料框，來比較他們擷取攔和列的速度。</p>
+<pre class="r"><code>mat &lt;- matrix(rnorm(100), rnorm(1000), ncol = 1000, nrow = 100)
+str(mat)</code></pre>
+<pre><code>##  num [1:100, 1:1000] 1.78 1.78 1.78 1.78 1.78 ...</code></pre>
+<pre class="r"><code>df &lt;- as.data.frame(mat)
+dim(df)</code></pre>
+<pre><code>## [1]  100 1000</code></pre>
+<div class="section level4">
+<h4>擷取欄位</h4>
+<pre class="r"><code>summary(microbenchmark(mat[,1], df[,1]))</code></pre>
+<pre><code>##       expr  min    lq   mean median   uq   max neval
+## 1 mat[, 1]  2.5  2.75  3.769    3.7  4.0  12.1   100
+## 2  df[, 1] 18.7 20.05 25.094   21.2 22.7 101.1   100</code></pre>
+</div>
+<div class="section level4">
+<h4>擷取列</h4>
+<pre class="r"><code>summary(microbenchmark(mat[1,], df[1,]))</code></pre>
+<pre><code>##       expr     min       lq      mean  median      uq     max neval
+## 1 mat[1, ]     7.2    11.45    31.428    40.5    46.0    89.2   100
+## 2  df[1, ] 12685.2 13512.40 14898.606 14031.9 15115.4 25217.4   100</code></pre>
+<p>參考資料:</p>
+<ul>
+<li><a href="https://www.datacamp.com/courses/writing-efficient-r-code">Writing Efficient R Code</a> from DataCamp created by Colin Gillespie</li>
+</ul>
+</div>
+</div>
+</div>
+
+    </article>
+
+    
+
+    <ul class="pager article-pager">
+      <li class="pager-newer pager-noitem">&lt; Newer</li>
+      <li class="pager-older">
+        <a href="/post/r%E4%B9%8B%E5%9C%B0%E7%8D%84%E7%B3%BB%E5%88%97-i-%E6%9C%AA%E9%A0%98%E6%B4%97%E8%80%85/" data-toggle="tooltip" data-placement="top" title="R之地獄系列-I. 未領洗者">Older &gt;</a>
+      </li>
+    </ul>
+  </div>
+
+
+<div class="site-footer">
+  <div class="copyright">&copy; Copyright 2018 Chun-Yu Chen</div>
+  <ul class="site-footer-items">
+    
+    <li class="site-footer-item-"><a href="" title=""></a></li>
+  </ul>
+  <div class="powerdby">
+    Powered by <a href="https://gohugo.io/">Hugo</a> and <a href="https://github.com/taikii/whiteplain">Whiteplain</a>
+  </div>
+</div>
+<script src="/js/script.js"></script>
+<script src="/js/custom.js"></script>
+
+
+</body>
+</html>

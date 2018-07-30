@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>&amp;copy; Copyright 2018 Chun-Yu Chen</copyright>
-    <lastBuildDate>Tue, 17 Jul 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 30 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Benchmarkme</title>
+      <link>/tags/benchmarkme/</link>
+      <pubDate>Mon, 30 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/benchmarkme/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Float Point</title>
@@ -18,6 +27,15 @@
       <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/float-point/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Microbenchmark</title>
+      <link>/tags/microbenchmark/</link>
+      <pubDate>Mon, 30 Jul 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/microbenchmark/</guid>
       <description></description>
     </item>
     
