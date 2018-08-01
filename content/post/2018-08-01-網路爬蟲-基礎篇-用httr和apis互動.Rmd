@@ -112,9 +112,9 @@ head(info)
 
 ### 認識XML格式與其資料整理
 
-除了JSON之外，XML也是網路爬蟲時常會遇到的格式，它跟JSON一樣，看似結構很複雜，但只要了解格式的組成，其實是很有條理的資料格式。它的結構和html有點像，都是由tag組成，tag會用&lt;&gt;表示:`&lt;tagname&gt;... &lt;/tagname&gt;`，例如:`&lt;movies&gt;, &lt;movie&gt;, &lt;title&gt;, &lt;year&gt;`，tag也能加上不同屬性(attribute)，例如:`&lt;title year = "1977"&gt;`，可參考[此文](http://irw.ncut.edu.tw/peterju/xml.html)了解更多。要處理XML，可以使用[xml2套件](https://www.rdocumentation.org/packages/xml2/versions/1.2.0)。&lt;/title&gt;&lt;/movie&gt;&lt;/movies&gt;
+除了JSON之外，XML也是網路爬蟲時常會遇到的格式，它跟JSON一樣，看似結構很複雜，但只要了解格式的組成，其實是很有條理的資料格式。它的結構和html有點像，都是由tag組成，tag會用<>表示:`<tagname>... </tagname>`，例如:`<movies>, <movie>, <title>, <year>`，tag也能加上不同屬性(attribute)，例如:`<title year = "1977">`，可參考[此文](http://irw.ncut.edu.tw/peterju/xml.html)了解更多。要處理XML，可以使用[xml2套件](https://www.rdocumentation.org/packages/xml2/versions/1.2.0)。
 
-我們仍然用實價周報作為例子，但我們這次要抓的格式為XML，在開放資料平台上有說明我們可以在API的網址後加上`&amp;format=xml`，就可以取得XML格式的資料。當然以下的方法也適用於其他透過API串接，以取得XML格式的情況。
+我們仍然用實價周報作為例子，但我們這次要抓的格式為XML，在開放資料平台上有說明我們可以在API的網址後加上`&format=xml`，就可以取得XML格式的資料。當然以下的方法也適用於其他透過API串接，以取得XML格式的情況。
 
 ```{r}
 resp_xml <- GET("http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire&rid=51839ac9-6454-49f2-aaf2-abd05c5405c8&format=xml")

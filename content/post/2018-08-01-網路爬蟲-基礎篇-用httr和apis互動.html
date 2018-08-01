@@ -47,7 +47,7 @@ get_result &lt;- GET(&quot;http://data.taipei/opendata/datalist/apiAccess?scope=
 # Print it to inspect it
 get_result</code></pre>
 <pre><code>## Response [http://data.taipei/opendata/datalist/apiAccess?scope=datasetMetadataSearch&amp;q=id:a9a97996-3a55-46c8-9076-e5ebdefad6dc]
-##   Date: 2018-08-01 12:32
+##   Date: 2018-08-01 12:41
 ##   Status: 200
 ##   Content-Type: application/json
 ##   Size: 2.6 kB</code></pre>
@@ -182,8 +182,8 @@ head(info)</code></pre>
 </div>
 <div id="xml" class="section level3">
 <h3>認識XML格式與其資料整理</h3>
-<p>除了JSON之外，XML也是網路爬蟲時常會遇到的格式，它跟JSON一樣，看似結構很複雜，但只要了解格式的組成，其實是很有條理的資料格式。它的結構和html有點像，都是由tag組成，tag會用&lt;&gt;表示:<code>&amp;lt;tagname&amp;gt;... &amp;lt;/tagname&amp;gt;</code>，例如:<code>&amp;lt;movies&amp;gt;, &amp;lt;movie&amp;gt;, &amp;lt;title&amp;gt;, &amp;lt;year&amp;gt;</code>，tag也能加上不同屬性(attribute)，例如:<code>&amp;lt;title year = &quot;1977&quot;&amp;gt;</code>，可參考<a href="http://irw.ncut.edu.tw/peterju/xml.html">此文</a>了解更多。要處理XML，可以使用<a href="https://www.rdocumentation.org/packages/xml2/versions/1.2.0">xml2套件</a>。&lt;/title&gt;&lt;/movie&gt;&lt;/movies&gt;</p>
-<p>我們仍然用實價周報作為例子，但我們這次要抓的格式為XML，在開放資料平台上有說明我們可以在API的網址後加上<code>&amp;amp;format=xml</code>，就可以取得XML格式的資料。當然以下的方法也適用於其他透過API串接，以取得XML格式的情況。</p>
+<p>除了JSON之外，XML也是網路爬蟲時常會遇到的格式，它跟JSON一樣，看似結構很複雜，但只要了解格式的組成，其實是很有條理的資料格式。它的結構和html有點像，都是由tag組成，tag會用&lt;&gt;表示:<code>&lt;tagname&gt;... &lt;/tagname&gt;</code>，例如:<code>&lt;movies&gt;, &lt;movie&gt;, &lt;title&gt;, &lt;year&gt;</code>，tag也能加上不同屬性(attribute)，例如:<code>&lt;title year = &quot;1977&quot;&gt;</code>，可參考<a href="http://irw.ncut.edu.tw/peterju/xml.html">此文</a>了解更多。要處理XML，可以使用<a href="https://www.rdocumentation.org/packages/xml2/versions/1.2.0">xml2套件</a>。</p>
+<p>我們仍然用實價周報作為例子，但我們這次要抓的格式為XML，在開放資料平台上有說明我們可以在API的網址後加上<code>&amp;format=xml</code>，就可以取得XML格式的資料。當然以下的方法也適用於其他透過API串接，以取得XML格式的情況。</p>
 <pre class="r"><code>resp_xml &lt;- GET(&quot;http://data.taipei/opendata/datalist/apiAccess?scope=resourceAquire&amp;rid=51839ac9-6454-49f2-aaf2-abd05c5405c8&amp;format=xml&quot;)
 
 # Load xml2
