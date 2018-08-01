@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>/post/%E7%B6%B2%E8%B7%AF%E7%88%AC%E8%9F%B2-%E5%9F%BA%E7%A4%8E%E7%AF%87-%E7%94%A8httr%E5%92%8Capis%E4%BA%92%E5%8B%95/</loc>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/post/%E6%8F%90%E5%8D%87r-code%E6%95%88%E7%8E%87%E7%9A%84%E5%B0%8F%E6%8A%80%E5%B7%A7/</loc>
     <lastmod>2018-07-30T00:00:00+00:00</lastmod>
   </url>
@@ -18,6 +23,12 @@
   
   <url>
     <loc>/about/</loc>
+  </url>
+  
+  <url>
+    <loc>/tags/apis/</loc>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
   <url>
@@ -38,14 +49,32 @@
   </url>
   
   <url>
+    <loc>/tags/httr/</loc>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/json/</loc>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/microbenchmark/</loc>
     <lastmod>2018-07-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
   <url>
+    <loc>/tags/open-data/</loc>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/post/</loc>
-    <lastmod>2018-07-30T00:00:00+00:00</lastmod>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -63,7 +92,13 @@
   
   <url>
     <loc>/</loc>
-    <lastmod>2018-07-30T00:00:00+00:00</lastmod>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/rlist/</loc>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -74,7 +109,25 @@
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2018-07-30T00:00:00+00:00</lastmod>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/categories/web-scraping/</loc>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/xml/</loc>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/xml2/</loc>
+    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   

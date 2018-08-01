@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>&amp;copy; Copyright 2018 Chun-Yu Chen</copyright>
-    <lastBuildDate>Mon, 30 Jul 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 01 Aug 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Apis</title>
+      <link>/tags/apis/</link>
+      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/apis/</guid>
+      <description></description>
+    </item>
     
     <item>
       <title>Benchmarkme</title>
@@ -31,6 +40,24 @@
     </item>
     
     <item>
+      <title>Httr</title>
+      <link>/tags/httr/</link>
+      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/httr/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Json</title>
+      <link>/tags/json/</link>
+      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/json/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Microbenchmark</title>
       <link>/tags/microbenchmark/</link>
       <pubDate>Mon, 30 Jul 2018 00:00:00 +0000</pubDate>
@@ -40,11 +67,47 @@
     </item>
     
     <item>
+      <title>Open Data</title>
+      <link>/tags/open-data/</link>
+      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/open-data/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>R Inferno</title>
       <link>/tags/r-inferno/</link>
       <pubDate>Tue, 17 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/r-inferno/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Rlist</title>
+      <link>/tags/rlist/</link>
+      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/rlist/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Xml</title>
+      <link>/tags/xml/</link>
+      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/xml/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Xml2</title>
+      <link>/tags/xml2/</link>
+      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/tags/xml2/</guid>
       <description></description>
     </item>
     

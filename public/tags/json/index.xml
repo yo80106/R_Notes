@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Json on R Notes</title>
+    <link>/tags/json/</link>
+    <description>Recent content in Json on R Notes</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>ja</language>
+    <copyright>&amp;copy; Copyright 2018 Chun-Yu Chen</copyright>
+    <lastBuildDate>Wed, 01 Aug 2018 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/json/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>網路爬蟲-基礎篇-用httr和APIs互動</title>
+      <link>/post/%E7%B6%B2%E8%B7%AF%E7%88%AC%E8%9F%B2-%E5%9F%BA%E7%A4%8E%E7%AF%87-%E7%94%A8httr%E5%92%8Capis%E4%BA%92%E5%8B%95/</link>
+      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
+      
+      <guid>/post/%E7%B6%B2%E8%B7%AF%E7%88%AC%E8%9F%B2-%E5%9F%BA%E7%A4%8E%E7%AF%87-%E7%94%A8httr%E5%92%8Capis%E4%BA%92%E5%8B%95/</guid>
+      <description>這是網路爬蟲系列文章的第一篇，也是從基礎開始和大家討論如何用R進行網路爬蟲。雖然本文的標題看起來很困難，什麼是httr?什麼是APIs?但請大家先相信這真的是很容易技巧，讓我們開始吧!
+如果大家google API的話，會找到很多很複雜的資訊，很多細節我也沒有深入研究。就字面上來看API是“Application programming interface”的縮寫，中文是「應用程式介面」，既然是某種介面，就是要方便互動。所以當程式開發人員希望某個開發項目，可以在某些部分讓其他人利用時，他就可以把這部分包裝成API的形式，讓其他使用者不用去理解整個專項的細節，也能透過串接API，進而使用專項的部分或全部功能。例如Google地圖也開發了API，讓網頁開發人員可以很容易的在網頁設計中和Google地圖的API串接，使網頁中呈現Google地圖，並讓使用者使用地圖功能。
+有些網站為了方便使用者取得網站的資料，也會把資料都包裝成API的形式，讓其他人容易去取得。這也是為什麼網路爬蟲的基礎篇就是談API的串接，去取得資料，因為我們可以透過R的套件，很容易地去串接API。甚至有一些網站把所有查詢、取得資料的功能都寫成一個套件，你只要看過說明書，就能很容易地取得資料，我們稱這些套件為API clients，例如維基百科的pageviews套件。
+# Load pageviews library(&amp;quot;pageviews&amp;quot;) ## Warning: package &amp;#39;pageviews&amp;#39; was built under R version 3.4.4 # Get the pageviews for &amp;quot;Red Sox&amp;quot; redsox_pageviews &amp;lt;- article_pageviews(project = &amp;quot;en.wikipedia&amp;quot;, &amp;quot;Red Sox&amp;quot;) # Examine the resulting object str(redsox_pageviews) ## &amp;#39;data.frame&amp;#39;: 1 obs. of 8 variables: ## $ project : chr &amp;quot;wikipedia&amp;quot; ## $ language : chr &amp;quot;en&amp;quot; ## $ article : chr &amp;quot;Red_Sox&amp;quot; ## $ access : chr &amp;quot;all-access&amp;quot; ## $ agent : chr &amp;quot;all-agents&amp;quot; ## $ granularity: chr &amp;quot;daily&amp;quot; ## $ date : POSIXct, format: &amp;quot;2015-10-01&amp;quot; ## $ views : num 46 從上面的例子就知道API client的方便之處，透過特定的套件和指令，就能拿到想要的資料。</description>
+    </item>
+    
+  </channel>
+</rss>
