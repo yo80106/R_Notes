@@ -7,19 +7,10 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>ja</language>
     <copyright>&amp;copy; Copyright 2018 Chun-Yu Chen</copyright>
-    <lastBuildDate>Wed, 01 Aug 2018 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 30 Jul 2018 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>Apis</title>
-      <link>/tags/apis/</link>
-      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/apis/</guid>
-      <description></description>
-    </item>
     
     <item>
       <title>Benchmarkme</title>
@@ -63,15 +54,6 @@
       <pubDate>Mon, 30 Jul 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/microbenchmark/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Open Data</title>
-      <link>/tags/open-data/</link>
-      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/open-data/</guid>
       <description></description>
     </item>
     

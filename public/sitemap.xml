@@ -26,12 +26,6 @@
   </url>
   
   <url>
-    <loc>/tags/apis/</loc>
-    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/tags/benchmarkme/</loc>
     <lastmod>2018-07-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -63,12 +57,6 @@
   <url>
     <loc>/tags/microbenchmark/</loc>
     <lastmod>2018-07-30T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/open-data/</loc>
-    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -109,7 +97,7 @@
   
   <url>
     <loc>/tags/</loc>
-    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
+    <lastmod>2018-07-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
   
