@@ -47,7 +47,7 @@ get_result &lt;- GET(&quot;http://data.taipei/opendata/datalist/apiAccess?scope=
 # Print it to inspect it
 get_result</code></pre>
 <pre><code>## Response [http://data.taipei/opendata/datalist/apiAccess?scope=datasetMetadataSearch&amp;q=id:a9a97996-3a55-46c8-9076-e5ebdefad6dc]
-##   Date: 2018-08-01 12:41
+##   Date: 2018-08-01 12:47
 ##   Status: 200
 ##   Content-Type: application/json
 ##   Size: 2.6 kB</code></pre>
@@ -216,6 +216,10 @@ table(xml_text(rev_nodes))</code></pre>
 ## 南港區 萬華區 
 ##     37     53</code></pre>
 <p>XML的標籤有時候會有屬性，若我們要的資訊是記錄在屬性中，可以用<code>xml_attrs()</code>和<code>xml_attr()</code>來擷取，前者需要標籤名稱作為參數，你會得到所有這個標籤下的屬性資訊；後者除了標籤名稱外，需要第二個參數，就是你想要的「特定」參數名稱，你就會得到確切的參數資訊。</p>
+<p>參考資料:</p>
+<ul>
+<li><a href="https://www.datacamp.com/courses/working-with-web-data-in-r">Working with Web Data in R</a> from DataCamp created by Charlotte Wickham and Oliver Keyes</li>
+</ul>
 </div>
 </div>
 </div>
