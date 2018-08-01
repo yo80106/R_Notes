@@ -40,15 +40,6 @@
     </item>
     
     <item>
-      <title>Json</title>
-      <link>/tags/json/</link>
-      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/json/</guid>
-      <description></description>
-    </item>
-    
-    <item>
       <title>Microbenchmark</title>
       <link>/tags/microbenchmark/</link>
       <pubDate>Mon, 30 Jul 2018 00:00:00 +0000</pubDate>
@@ -72,15 +63,6 @@
       <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
       
       <guid>/tags/rlist/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Xml</title>
-      <link>/tags/xml/</link>
-      <pubDate>Wed, 01 Aug 2018 00:00:00 +0000</pubDate>
-      
-      <guid>/tags/xml/</guid>
       <description></description>
     </item>
     

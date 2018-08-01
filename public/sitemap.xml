@@ -49,12 +49,6 @@
   </url>
   
   <url>
-    <loc>/tags/json/</loc>
-    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
     <loc>/tags/microbenchmark/</loc>
     <lastmod>2018-07-30T00:00:00+00:00</lastmod>
     <priority>0</priority>
@@ -103,12 +97,6 @@
   
   <url>
     <loc>/categories/web-scraping/</loc>
-    <lastmod>2018-08-01T00:00:00+00:00</lastmod>
-    <priority>0</priority>
-  </url>
-  
-  <url>
-    <loc>/tags/xml/</loc>
     <lastmod>2018-08-01T00:00:00+00:00</lastmod>
     <priority>0</priority>
   </url>
